@@ -331,7 +331,11 @@ useEffect(() => {
             <button
               className="upi-btn"
               onClick={() => {
-                handlePayClick({ preventDefault: () => {} });
+                if (!deliveryType) {
+                  setPayError("Please select delivery option first.");
+                  return;
+                }
+                setPayError("");
                 setShowAppPicker(true);
               }}
             >
@@ -732,7 +736,6 @@ useEffect(() => {
         }
 
         .pay-note::before {
-          content: "IMPORTANT:";
           display: inline-flex;
           align-items: center;
           justify-content: center;
