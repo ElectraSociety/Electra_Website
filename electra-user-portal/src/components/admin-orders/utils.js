@@ -97,14 +97,8 @@ export function exportProductOrdersToExcel(batch) {
       User_ID: i.userId || "",
       Payment_Status: i.paymentStatus || "",
       Transaction_ID: i.txnId || "",
-      Approved_At: i.approvedAt?.toDate
-        ? i.approvedAt.toDate().toLocaleString("en-IN")
-        : "",
       Created_At: i.createdAt?.toDate
         ? i.createdAt.toDate().toLocaleString("en-IN")
-        : "",
-      Updated_At: i.updatedAt?.toDate
-        ? i.updatedAt.toDate().toLocaleString("en-IN")
         : "",
 
       /* ───────── CUSTOMER ───────── */
@@ -125,24 +119,18 @@ export function exportProductOrdersToExcel(batch) {
       Print_Name: i.printName ? "Yes" : "No",
       Printed_Name: i.printName
         ? i.printedName || ""
-        : "ALL",
+        : "",
 
       /* ───────── PRICING ───────── */
       Unit_Price: Number(i.price || 0),
       Item_Total:
         Number(i.price || 0) * Number(i.quantity || 1),
-      Print_Name_Charge: i.printName ? 50 : 0,
+      Print_Name_Charge: i.printName ? 40 : 0,
       Delivery_Charge: Number(i.deliveryCharge || 0),
       Total_Amount_Paid: Number(i.totalAmountPaid || 0),
 
       /* ───────── FULFILLMENT ───────── */
       Fulfillment_Status: i.fulfillmentStatus || "",
-      Shipped_At: i.shippedAt?.toDate
-        ? i.shippedAt.toDate().toLocaleString("en-IN")
-        : "",
-      Delivered_At: i.deliveredAt?.toDate
-        ? i.deliveredAt.toDate().toLocaleString("en-IN")
-        : "",
     });
   });
 
