@@ -9,6 +9,7 @@ export default function BatchCard({
   orders = [],
   action,
   onAction,
+  onExport,
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(null); // "export" | "action" | null
@@ -40,6 +41,11 @@ export default function BatchCard({
     setLoading("export");
 
     try {
+      if (typeof onExport === "function") {
+        await onExport();
+        return;
+      }
+
       const rows = items.map((i) => ({
         Order_ID: i.orderId,
         Product: productName,
@@ -47,6 +53,11 @@ export default function BatchCard({
         Qty: i.quantity,
         Amount: (i.price || 0) * i.quantity,
         Print: i.printName ? i.printedName : "",
+        Customer_Name: i.deliveryAddress?.fullName || "",
+        Phone: i.deliveryAddress?.phone || "",
+        Address: i.deliveryAddress?.addressLine || "",
+        City: i.deliveryAddress?.city || "",
+        Pincode: i.deliveryAddress?.pincode || "",
         Status: i.paymentStatus,
       }));
 
